@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node --experimental-fetch -e ' *)",
+      "Bash(curl -v \"https://koraruu9j0s8vyki.private.blob.vercel-storage.com/hero/1781131778043.jpg\")"
+    ]
+  }
+}
