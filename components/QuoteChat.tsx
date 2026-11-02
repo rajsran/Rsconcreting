@@ -62,7 +62,7 @@ export default function QuoteChat({ isOpen, onClose }: QuoteChatProps) {
   const [step, setStep]       = useState<Step>("service");
   const [answers, setAnswers] = useState<Answers>({});
   const [customText, setCustomText]     = useState("");
-  const [showCustom, setShowCustom]     = useState(false);
+  const [, setShowCustom]     = useState(false);
   const [isLoading, setIsLoading]       = useState(false);
   // tracks whether the lead was successfully submitted to the backend
   const [submittedRef]       = useState({ value: false });

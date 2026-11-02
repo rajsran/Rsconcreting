@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Phone, MapPin, Clock, Shovel, AtSign, Instagram } from "lucide-react";
+import { Phone, MapPin, Clock, Shovel, Instagram } from "lucide-react";
 
 const quickLinks = [
   { href: "/",         label: "Home"       },

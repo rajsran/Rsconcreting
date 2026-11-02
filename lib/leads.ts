@@ -43,12 +43,15 @@ export async function saveContactMessage(m: ContactMessage): Promise<number> {
 export * from './leadTypes';
 import type { LeadStatus, MessageStatus, QuoteLeadRecord, ContactMessageRecord } from './leadTypes';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type Row = Record<string, any>;
+
 export async function listQuoteLeads(limit = 200): Promise<QuoteLeadRecord[]> {
   try {
     const rows = (await getSql()`
       SELECT id, created_at, name, email, phone, service, type, size, timeline,
              estimate_low, estimate_high, status
-      FROM quote_leads ORDER BY created_at DESC LIMIT ${limit}`) as Record<string, any>[];
+      FROM quote_leads ORDER BY created_at DESC LIMIT ${limit}`) as Row[];
     return rows.map((r) => ({
       id: Number(r.id),
       createdAt: new Date(r.created_at).toISOString(),
@@ -67,7 +70,7 @@ export async function listContactMessages(limit = 200): Promise<ContactMessageRe
   try {
     const rows = (await getSql()`
       SELECT id, created_at, name, phone, email, service, message, status
-      FROM contact_messages ORDER BY created_at DESC LIMIT ${limit}`) as Record<string, any>[];
+      FROM contact_messages ORDER BY created_at DESC LIMIT ${limit}`) as Row[];
     return rows.map((r) => ({
       id: Number(r.id),
       createdAt: new Date(r.created_at).toISOString(),
