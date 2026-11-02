@@ -29,7 +29,10 @@ const values = [
 ];
 
 export const metadata = {
-  title: "About Us | Groundmakers Concrete & Landscaping",
+  title: "About Us",
+  description:
+    "Meet the team behind RS Concrete Creations & Landscaping: locally based and focused on clean, long-lasting concrete and landscaping work in Melbourne's west.",
+  alternates: { canonical: "/about" },
 };
 
 export default function AboutPage() {

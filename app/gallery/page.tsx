@@ -15,7 +15,8 @@ const galleryItems = [
 ];
 
 export const metadata = {
-  title: "Gallery | Groundmakers Concrete & Landscaping",
+  title: "Gallery",
+  robots: { index: false, follow: true },
 };
 
 export default function GalleryPage() {
