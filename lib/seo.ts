@@ -10,7 +10,7 @@ export const BUSINESS = {
   suburb: "Rockbank",
   state: "VIC",
   postcode: "3335",
-  facebook: "https://www.facebook.com/share/18jjsoJ2zR/?mibextid=wwXIfr",
+  facebook: "https://www.facebook.com/profile.php?id=61550892891589",
 };
 
 export const DEFAULT_DESCRIPTION =

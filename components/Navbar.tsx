@@ -74,7 +74,7 @@ export default function Navbar() {
             <Image src="/instagram.png" alt="Instagram" width={32} height={32} className="h-8 w-8 object-contain" />
           </a>
           <a
-            href="https://www.facebook.com/share/18jjsoJ2zR/?mibextid=wwXIfr"
+            href="https://www.facebook.com/profile.php?id=61550892891589"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Facebook"
@@ -129,7 +129,7 @@ export default function Navbar() {
                 <Image src="/instagram.png" alt="Instagram" width={22} height={22} />
               </a>
               <a
-                href="https://www.facebook.com/share/18jjsoJ2zR/?mibextid=wwXIfr"
+                href="https://www.facebook.com/profile.php?id=61550892891589"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Facebook"
