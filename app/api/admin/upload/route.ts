@@ -19,7 +19,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     }
 
     const blob = await put(pathname, file, {
-      access: 'private',
+      access: 'public',
       contentType: 'image/jpeg',
     });
 
