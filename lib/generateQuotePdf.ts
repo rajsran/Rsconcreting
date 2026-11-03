@@ -318,12 +318,25 @@ function QuotePdfDocument({ lead, estimate, lineItems }: { lead: QuoteLead; esti
                     React.createElement(Text, { style: [styles.tableCellBold, { flex: 1, textAlign: "right" }] }, `$${amount.toLocaleString()}`),
                   )
                 ),
-                React.createElement(View, { style: { flexDirection: "row", paddingVertical: 10, paddingHorizontal: 12, backgroundColor: "#1a1a2e", borderRadius: 4, marginTop: 2 } },
-                  React.createElement(Text, { style: { flex: 3, fontSize: 10, fontFamily: "Helvetica-Bold", color: "#ffffff" } }, "TOTAL"),
-                  React.createElement(Text, { style: { flex: 1, fontSize: 10, fontFamily: "Helvetica-Bold", color: "#BA9662", textAlign: "right" } },
-                    `$${lineItems.reduce((s, i) => s + i.amount, 0).toLocaleString()}`
-                  ),
-                ),
+                (() => {
+                  const subtotal = lineItems.reduce((s, i) => s + i.amount, 0);
+                  const gst = Math.round(subtotal * 0.1);
+                  const total = subtotal + gst;
+                  return React.createElement(React.Fragment, null,
+                    React.createElement(View, { style: { flexDirection: "row", paddingVertical: 7, paddingHorizontal: 12, borderBottomWidth: 1, borderBottomColor: "#f3f4f6" } },
+                      React.createElement(Text, { style: { flex: 3, fontSize: 9, color: "#6b7280" } }, "Subtotal (ex GST)"),
+                      React.createElement(Text, { style: { flex: 1, fontSize: 9, fontFamily: "Helvetica-Bold", color: "#1a1a2e", textAlign: "right" } }, `$${subtotal.toLocaleString()}`),
+                    ),
+                    React.createElement(View, { style: { flexDirection: "row", paddingVertical: 7, paddingHorizontal: 12, borderBottomWidth: 1, borderBottomColor: "#f3f4f6" } },
+                      React.createElement(Text, { style: { flex: 3, fontSize: 9, color: "#6b7280" } }, "GST (10%)"),
+                      React.createElement(Text, { style: { flex: 1, fontSize: 9, fontFamily: "Helvetica-Bold", color: "#1a1a2e", textAlign: "right" } }, `$${gst.toLocaleString()}`),
+                    ),
+                    React.createElement(View, { style: { flexDirection: "row", paddingVertical: 10, paddingHorizontal: 12, backgroundColor: "#1a1a2e", borderRadius: 4, marginTop: 2 } },
+                      React.createElement(Text, { style: { flex: 3, fontSize: 10, fontFamily: "Helvetica-Bold", color: "#ffffff" } }, "TOTAL (inc GST)"),
+                      React.createElement(Text, { style: { flex: 1, fontSize: 10, fontFamily: "Helvetica-Bold", color: "#BA9662", textAlign: "right" } }, `$${total.toLocaleString()}`),
+                    ),
+                  );
+                })(),
               ),
             )
           : estimate

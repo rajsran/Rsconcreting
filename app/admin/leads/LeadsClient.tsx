@@ -102,7 +102,9 @@ export default function LeadsClient({ initial }: { initial: QuoteLeadRecord[] })
     }
   }
 
-  const total = lineItems.reduce((s, i) => s + (Number(i.amount) || 0), 0);
+  const subtotal = lineItems.reduce((s, i) => s + (Number(i.amount) || 0), 0);
+  const gst = Math.round(subtotal * 0.1);
+  const total = subtotal + gst;
 
   return (
     <div className="max-w-[1400px] mx-auto px-4 md:px-10 py-8 md:py-10">
@@ -312,10 +314,20 @@ export default function LeadsClient({ initial }: { initial: QuoteLeadRecord[] })
                         <Plus className="w-3.5 h-3.5" /> Add line item
                       </button>
 
-                      {/* Total bar */}
-                      <div className="flex items-center justify-between bg-ink-900 text-white rounded-md px-4 py-3 mb-4">
-                        <span className="text-xs font-bold uppercase tracking-wider">Total</span>
-                        <span className="font-black text-lg">${total.toLocaleString()}</span>
+                      {/* GST + Total */}
+                      <div className="rounded-md overflow-hidden mb-4 border border-cream-200">
+                        <div className="flex items-center justify-between px-4 py-2.5 bg-white">
+                          <span className="text-xs text-ink-500">Subtotal (ex GST)</span>
+                          <span className="text-sm font-semibold text-ink-900">${subtotal.toLocaleString()}</span>
+                        </div>
+                        <div className="flex items-center justify-between px-4 py-2.5 bg-white border-t border-cream-100">
+                          <span className="text-xs text-ink-500">GST (10%)</span>
+                          <span className="text-sm font-semibold text-ink-900">${gst.toLocaleString()}</span>
+                        </div>
+                        <div className="flex items-center justify-between bg-ink-900 text-white px-4 py-3">
+                          <span className="text-xs font-bold uppercase tracking-wider">Total (inc GST)</span>
+                          <span className="font-black text-lg">${total.toLocaleString()}</span>
+                        </div>
                       </div>
 
                       {sendError && (

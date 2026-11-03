@@ -150,7 +150,9 @@ export async function sendQuoteEmail(lead: QuoteLead, pdfBuffer: Buffer): Promis
 
 export async function sendFinalQuoteEmail(lead: QuoteLeadRecord, lineItems: LineItem[], pdfBuffer: Buffer): Promise<void> {
   const firstName = lead.name?.split(" ")[0] ?? "there";
-  const total = lineItems.reduce((s, i) => s + i.amount, 0);
+  const subtotal = lineItems.reduce((s, i) => s + i.amount, 0);
+  const gst = Math.round(subtotal * 0.1);
+  const total = subtotal + gst;
 
   const lineItemRows = lineItems.map((item, i) => `
     <tr style="background:${i % 2 === 0 ? "#F9F5EE" : "#ffffff"};">
@@ -175,8 +177,16 @@ export async function sendFinalQuoteEmail(lead: QuoteLeadRecord, lineItems: Line
         ${lineItemRows}
       </table>
       <table style="width:100%;border-collapse:collapse;margin-bottom:24px;">
+        <tr style="background:#f9fafb;">
+          <td style="padding:9px 12px;font-size:13px;color:#6b7280;width:70%;">Subtotal (ex GST)</td>
+          <td style="padding:9px 12px;font-size:13px;font-weight:bold;color:#1a1a2e;text-align:right;">$${subtotal.toLocaleString()}</td>
+        </tr>
+        <tr style="background:#ffffff;border-top:1px solid #f3f4f6;">
+          <td style="padding:9px 12px;font-size:13px;color:#6b7280;">GST (10%)</td>
+          <td style="padding:9px 12px;font-size:13px;font-weight:bold;color:#1a1a2e;text-align:right;">$${gst.toLocaleString()}</td>
+        </tr>
         <tr style="background:#1a1a2e;">
-          <td style="padding:10px 12px;font-size:14px;font-weight:bold;color:#ffffff;width:70%;">TOTAL</td>
+          <td style="padding:10px 12px;font-size:14px;font-weight:bold;color:#ffffff;">TOTAL (inc GST)</td>
           <td style="padding:10px 12px;font-size:14px;font-weight:bold;color:#BA9662;text-align:right;">$${total.toLocaleString()}</td>
         </tr>
       </table>
@@ -205,7 +215,7 @@ export async function sendFinalQuoteEmail(lead: QuoteLeadRecord, lineItems: Line
   await getClient().sendEmail({
     From: FROM_EMAIL,
     To: lead.email!,
-    Subject: `Your Quote from RS Concrete Creations — $${total.toLocaleString()}`,
+    Subject: `Your Quote from RS Concrete Creations — $${total.toLocaleString()} inc GST`,
     HtmlBody: customerHtml,
     Attachments: [pdfAttachment],
     MessageStream: "outbound",
