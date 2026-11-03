@@ -28,6 +28,7 @@ export interface QuoteLead {
   name?: string;
   email?: string;
   phone?: string;
+  postcode?: string;
 }
 
 export interface Estimate {
