@@ -3,6 +3,7 @@ import { SITE_URL, BUSINESS, DEFAULT_DESCRIPTION, OG_IMAGE, localBusinessJsonLd 
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import SocialSidebar from "@/components/SocialSidebar";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -58,6 +59,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
         />
         <Navbar />
+        <SocialSidebar />
         <main>{children}</main>
 
         <WhatsAppButton />
