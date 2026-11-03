@@ -106,16 +106,16 @@ export default function HomePage() {
               ))}
             </div>
 
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
               <button
                 onClick={() => setIsChatOpen(true)}
-                className="inline-flex items-center gap-2.5 px-7 py-4 bg-violet-600 text-white text-xs font-semibold tracking-wider uppercase rounded-md hover:bg-violet-700 transition-colors"
+                className="inline-flex items-center justify-center gap-3 px-8 py-5 bg-violet-600 text-white text-sm font-bold tracking-widest uppercase rounded-xl shadow-lg hover:bg-violet-700 hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 w-full sm:w-auto"
               >
-                Get a Free Quote <ArrowRight className="w-4 h-4" />
+                Get a Free Quote <ArrowRight className="w-5 h-5" />
               </button>
               <Link
                 href="/projects"
-                className="inline-flex items-center px-7 py-4 border border-ink-900 bg-white text-ink-900 text-xs font-semibold tracking-wider uppercase rounded-md hover:bg-ink-900 hover:text-white transition-colors"
+                className="inline-flex items-center justify-center gap-3 px-8 py-5 border-2 border-ink-900 bg-white text-ink-900 text-sm font-bold tracking-widest uppercase rounded-xl shadow-md hover:bg-ink-900 hover:text-white hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 w-full sm:w-auto"
               >
                 View Our Work
               </Link>
