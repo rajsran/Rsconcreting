@@ -335,7 +335,7 @@ function QuotePdfDocument({ lead, estimate }: { lead: QuoteLead; estimate: Estim
         // ── Footer ──
         React.createElement(View, { style: styles.footer },
           React.createElement(Text, { style: styles.footerLeft },
-            `Groundmakers Concrete & Landscaping · ABN ${COMPANY_ABN}\nRockbank, Melbourne VIC 3335`
+            `Groundmakers Concrete & Landscaping · ABN ${COMPANY_ABN}\nMelbourne Surrounding Suburbs`
           ),
           React.createElement(Text, { style: styles.footerRight },
             "0476 863 201\nquotes@groundmakers.com.au"

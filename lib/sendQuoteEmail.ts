@@ -70,7 +70,7 @@ function buildCustomerHtml(lead: QuoteLead, estimate: Estimate | null): string {
     </div>
 
     <div style="background:#f9fafb;padding:20px 32px;border:1px solid #e5e7eb;border-top:none;border-radius:0 0 10px 10px;text-align:center;">
-      <p style="color:#9ca3af;font-size:11px;margin:0;">Groundmakers Concrete &amp; Landscaping · Rockbank, Melbourne VIC 3335</p>
+      <p style="color:#9ca3af;font-size:11px;margin:0;">Groundmakers Concrete &amp; Landscaping · Melbourne Surrounding Suburbs</p>
       <p style="color:#9ca3af;font-size:11px;margin:4px 0 0;">quotes@groundmakers.com.au · 0476 863 201</p>
     </div>
   </div>`;

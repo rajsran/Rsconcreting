@@ -19,7 +19,7 @@ const values = [
   {
     icon: MapPin,
     title: "Locally Based",
-    desc: "Based in Rockbank, we service Melbourne's western suburbs and understand local conditions.",
+    desc: "We service Melbourne's surrounding suburbs and understand local conditions.",
   },
   {
     icon: Leaf,
@@ -75,7 +75,7 @@ export default function AboutPage() {
                 Groundmakers Concrete and Landscaping was founded by brothers Arsdeep and Gurnaib Singh with a simple mission: deliver premium outdoor construction work with the honesty and care of a family business.
               </p>
               <p>
-                Based in Rockbank in Melbourne&apos;s growing west, we&apos;ve worked on hundreds of projects across the region &#8212; from small garden makeovers to full property transformations. Every job gets our personal attention.
+                Servicing Melbourne&apos;s surrounding suburbs, we&apos;ve worked on hundreds of projects across the region &#8212; from small garden makeovers to full property transformations. Every job gets our personal attention.
               </p>
               <p>
                 We believe in transparent pricing, clear communication, and craftsmanship that speaks for itself. When we finish a project, we want you to be the one telling your neighbours who did the work.

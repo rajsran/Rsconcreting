@@ -291,8 +291,7 @@ export default function QuoteChat({ isOpen, onClose }: QuoteChatProps) {
             {step === "phone" && (
               <Step
                 q={`${firstName ? `Great, ${firstName}!` : "Great!"} What's your phone number?`}
-                sub="Arsdeep or Gurnaib will call within 24 hours"
-                icon={<Phone className="w-4 h-4 text-violet-600" />}
+icon={<Phone className="w-4 h-4 text-violet-600" />}
               >
                 <TextInput
                   inputRef={inputRef}

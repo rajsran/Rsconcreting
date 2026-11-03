@@ -10,7 +10,7 @@ const quickLinks = [
 ];
 
 const contactItems = [
-  { Icon: MapPin,    content: "19 Zoe Street, Rockbank VIC",   href: "https://maps.google.com/?q=19+Zoe+Street+Rockbank+VIC" },
+  { Icon: MapPin,    content: "Melbourne Surrounding Suburbs",  href: null },
   { Icon: Phone,     content: "0476 863 201",                  href: "tel:0476863201"  },
   { Icon: Clock,     content: "Mon–Fri, 8am – 4pm",           href: null              },
   { Icon: Instagram, content: "@rsconcreting",                 href: "https://www.instagram.com/rsconcreting/" },

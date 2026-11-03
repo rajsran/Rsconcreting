@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     "decking",
     "fencing",
     "retaining walls",
-    "Rockbank",
+    "Melbourne surrounding suburbs",
     "Melbourne west",
   ],
   applicationName: BUSINESS.name,

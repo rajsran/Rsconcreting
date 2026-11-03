@@ -6,10 +6,8 @@ export const BUSINESS = {
   name: "RS Concrete Creations & Landscaping",
   phone: "+61476863201",
   email: "info@rsconcreting.com.au",
-  street: "19 Zoe Street",
-  suburb: "Rockbank",
+  suburb: "Melbourne",
   state: "VIC",
-  postcode: "3335",
   facebook: "https://www.facebook.com/profile.php?id=61550892891589",
 };
 
@@ -32,10 +30,8 @@ export const localBusinessJsonLd = {
   priceRange: "$$",
   address: {
     "@type": "PostalAddress",
-    streetAddress: BUSINESS.street,
     addressLocality: BUSINESS.suburb,
     addressRegion: BUSINESS.state,
-    postalCode: BUSINESS.postcode,
     addressCountry: "AU",
   },
   areaServed: [

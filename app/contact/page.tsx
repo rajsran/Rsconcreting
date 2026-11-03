@@ -3,8 +3,6 @@
 import { useState } from "react";
 import { Phone, MapPin, Clock, Instagram, Send, CheckCircle } from "lucide-react";
 
-const MAP_QUERY = encodeURIComponent("19 Zoe Street, Rockbank VIC 3335");
-
 const services = ["Concreting", "Landscaping", "Decking", "Fencing", "Retaining Walls", "Other"];
 
 export default function ContactPage() {
@@ -73,9 +71,8 @@ export default function ContactPage() {
                   <MapPin className="w-5 h-5 text-violet-600" />
                 </div>
                 <div>
-                  <p className="text-ink-300 text-xs uppercase tracking-widest mb-1">Address</p>
-                  <p className="text-ink-900 font-semibold">19 Zoe Street</p>
-                  <p className="text-ink-500">Rockbank VIC 3335</p>
+                  <p className="text-ink-300 text-xs uppercase tracking-widest mb-1">Service Area</p>
+                  <p className="text-ink-900 font-semibold">Melbourne Surrounding Suburbs</p>
                 </div>
               </li>
               <li className="flex items-start gap-4">
@@ -99,28 +96,6 @@ export default function ContactPage() {
               </li>
             </ul>
 
-            {/* Map — tap to open the address in Google Maps */}
-            <div className="relative mt-10 aspect-video rounded-2xl overflow-hidden bg-white border border-gray-200 shadow-card">
-              <iframe
-                title="Map showing 19 Zoe Street, Rockbank VIC 3335"
-                src={`https://maps.google.com/maps?q=${MAP_QUERY}&z=15&output=embed`}
-                className="absolute inset-0 w-full h-full border-0"
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              />
-              {/* Overlay: makes the whole map tappable and opens Google Maps (app on phones) */}
-              <a
-                href={`https://www.google.com/maps/search/?api=1&query=${MAP_QUERY}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Open 19 Zoe Street, Rockbank in Google Maps"
-                className="absolute inset-0 z-10 flex items-end justify-center p-3 group"
-              >
-                <span className="inline-flex items-center gap-2 bg-white/95 text-ink-900 text-xs font-semibold px-4 py-2 rounded-full shadow-card group-hover:bg-violet-600 group-hover:text-white transition-colors">
-                  <MapPin className="w-3.5 h-3.5" /> Open in Google Maps
-                </span>
-              </a>
-            </div>
           </div>
 
           {/* Form */}
