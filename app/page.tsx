@@ -87,21 +87,21 @@ export default function HomePage() {
 
         <div className="relative max-w-[1800px] mx-auto px-6 md:px-10 py-10 md:py-16 md:min-h-[406px] md:flex md:items-center">
           <div className="md:max-w-[46%] md:pl-4">
-            <Eyebrow className="mb-6">Melbourne&apos;s Trusted Concrete &amp; Landscaping Specialists</Eyebrow>
-            <h1 className="font-bold tracking-tight text-[2.6rem] md:text-[3.4rem] leading-[1.05] text-ink-900 mb-6">
+            <Eyebrow className="mb-3">Melbourne&apos;s Trusted Concrete &amp; Landscaping Specialists</Eyebrow>
+            <h1 className="font-bold tracking-tight text-[2.4rem] md:text-[3.4rem] leading-[1.05] text-ink-900 mb-3">
               Luxury Outdoor
               <br />
               <span className="text-violet-600">Transformations.</span>
             </h1>
-            <p className="text-ink-700 text-[15px] leading-relaxed mb-8 max-w-sm">
+            <p className="text-ink-600 text-[14px] leading-relaxed mb-5 max-w-sm">
               Custom concreting, landscaping and outdoor construction for modern homes across Melbourne.
             </p>
 
-            <div className="flex flex-wrap gap-x-8 gap-y-4 mb-9">
+            <div className="flex items-center gap-5 mb-6">
               {trust.map(({ Icon, label }) => (
-                <div key={label} className="flex items-center gap-2.5">
-                  <Icon className="w-7 h-7 text-violet-600 shrink-0" strokeWidth={1.25} />
-                  <span className="text-xs text-ink-700 leading-snug whitespace-pre-line">{label}</span>
+                <div key={label} className="flex items-center gap-1.5">
+                  <Icon className="w-5 h-5 text-violet-600 shrink-0" strokeWidth={1.5} />
+                  <span className="text-[11px] font-medium text-ink-600 leading-snug whitespace-pre-line">{label}</span>
                 </div>
               ))}
             </div>
@@ -109,13 +109,13 @@ export default function HomePage() {
             <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
               <button
                 onClick={() => setIsChatOpen(true)}
-                className="inline-flex items-center justify-center gap-3 px-8 py-5 bg-violet-600 text-white text-sm font-bold tracking-widest uppercase rounded-xl shadow-lg hover:bg-violet-700 hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 w-full sm:w-auto"
+                className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-violet-600 text-white text-sm font-bold tracking-widest uppercase rounded-xl shadow-lg hover:bg-violet-700 hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 w-full sm:w-auto"
               >
                 Get a Free Quote <ArrowRight className="w-5 h-5" />
               </button>
               <Link
                 href="/projects"
-                className="inline-flex items-center justify-center gap-3 px-8 py-5 border-2 border-ink-900 bg-white text-ink-900 text-sm font-bold tracking-widest uppercase rounded-xl shadow-md hover:bg-ink-900 hover:text-white hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 w-full sm:w-auto"
+                className="inline-flex items-center justify-center gap-3 px-8 py-4 border-2 border-ink-900 bg-white text-ink-900 text-sm font-bold tracking-widest uppercase rounded-xl shadow-md hover:bg-ink-900 hover:text-white hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 w-full sm:w-auto"
               >
                 View Our Work
               </Link>
