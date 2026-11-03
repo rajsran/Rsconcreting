@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import {
   X, Hammer, Leaf, Layers, ShieldCheck,
-  ChevronRight, Phone, CheckCircle2, Loader2,
+  ChevronRight, Phone, CheckCircle2,
   MessageCircle, Ruler, Calendar, User,
 } from "lucide-react";
 import { PRICING, calcEstimate, formatSize, unitFor } from "@/lib/pricing";
@@ -59,7 +59,6 @@ export default function QuoteChat({ isOpen, onClose }: QuoteChatProps) {
   const [step, setStep]         = useState<Step>("details");
   const [answers, setAnswers]   = useState<Answers>({});
   const [customText, setCustomText] = useState("");
-  const [isLoading, setIsLoading]   = useState(false);
   const [submittedRef]              = useState({ value: false });
 
   // Details form state
@@ -74,7 +73,6 @@ export default function QuoteChat({ isOpen, onClose }: QuoteChatProps) {
       setStep("details");
       setAnswers({});
       setCustomText("");
-      setIsLoading(false);
       setDetailsForm({ name: "", phone: "", email: "", postcode: "" });
       setDetailsErrors({});
       submittedRef.value = false;
@@ -120,21 +118,16 @@ export default function QuoteChat({ isOpen, onClose }: QuoteChatProps) {
     if (nextStep) setStep(nextStep);
   };
 
-  const finishQuote = async (final: Answers) => {
+  const finishQuote = (final: Answers) => {
     setStep("quote");
-    setIsLoading(true);
-    try {
-      await fetch("/api/quote/submit", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(final),
-      });
-      submittedRef.value = true;
-    } catch {
-      // non-critical
-    } finally {
-      setIsLoading(false);
-    }
+    // Fire-and-forget — quote is calculated client-side, no need to wait
+    fetch("/api/quote/submit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(final),
+    })
+      .then(() => { submittedRef.value = true; })
+      .catch(() => {});
   };
 
   const isLinear  = unitFor(answers) === "lm";
@@ -315,13 +308,7 @@ export default function QuoteChat({ isOpen, onClose }: QuoteChatProps) {
             {/* ══ QUOTE RESULT ══ */}
             {step === "quote" && (
               <div className="flex flex-col gap-3 pb-2">
-                {isLoading ? (
-                  <div className="flex flex-col items-center justify-center py-16 gap-3">
-                    <Loader2 className="w-8 h-8 text-violet-500 animate-spin" />
-                    <p className="text-ink-400 text-sm">Calculating your quote…</p>
-                  </div>
-                ) : (
-                  <>
+                <>
                     <div className="bg-gradient-to-br from-violet-600 to-violet-700 rounded-2xl p-5 text-center text-white">
                       <CheckCircle2 className="w-10 h-10 text-violet-300 mx-auto mb-2" />
                       <p className="font-black text-lg leading-tight">
@@ -395,7 +382,6 @@ export default function QuoteChat({ isOpen, onClose }: QuoteChatProps) {
                         setCustomText("");
                         setDetailsForm({ name: "", phone: "", email: "", postcode: "" });
                         setDetailsErrors({});
-                        setIsLoading(false);
                         submittedRef.value = false;
                         scrollTop();
                       }}
@@ -404,8 +390,7 @@ export default function QuoteChat({ isOpen, onClose }: QuoteChatProps) {
                       <MessageCircle className="w-3.5 h-3.5" />
                       Start a new quote
                     </button>
-                  </>
-                )}
+                </>
               </div>
             )}
 
