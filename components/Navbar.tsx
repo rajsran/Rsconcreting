@@ -19,27 +19,58 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
 
-  // Admin area has its own screens — don't show the public site navbar there
   if (pathname.startsWith("/admin")) return null;
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur border-b border-gray-100">
-      <div className="max-w-[1800px] mx-auto pl-3 pr-3 py-1.5 md:py-0 md:h-[54px] md:px-10 flex items-center justify-between">
 
-        {/* Logo */}
-        <Link href="/" className="flex items-center shrink-0 md:absolute md:left-0 md:top-0 md:z-10 md:bg-white md:rounded-br-2xl md:shadow-md md:px-4 md:pt-1.5 md:pb-2">
+      {/* ── Mobile bar: 3-column grid so logo is truly centred ── */}
+      <div className="md:hidden grid grid-cols-3 items-center px-3 py-2">
+        {/* Left: hamburger */}
+        <div className="flex justify-start items-center">
+          <button onClick={() => setOpen(!open)} aria-label="Toggle menu" className="flex items-center">
+            {open
+              ? <X className="w-6 h-6 text-ink-900" />
+              : <Image src="/burgermenu.png" alt="Menu" width={30} height={30} className="h-7 w-7 object-contain" />}
+          </button>
+        </div>
+
+        {/* Centre: logo */}
+        <div className="flex justify-center">
+          <Link href="/">
+            <Image
+              src="/logo.png"
+              alt="RS Concrete Creations & Landscaping"
+              width={1144}
+              height={675}
+              className="h-[48px] w-auto object-contain"
+              priority
+            />
+          </Link>
+        </div>
+
+        {/* Right: call */}
+        <div className="flex justify-end items-center">
+          <a href="tel:0476863201" className="flex items-center">
+            <Image src="/callus.png" alt="Call Us" width={28} height={28} className="h-7 w-auto object-contain" />
+          </a>
+        </div>
+      </div>
+
+      {/* ── Desktop bar ── */}
+      <div className="hidden md:flex max-w-[1800px] mx-auto h-[54px] px-10 items-center justify-between">
+        <Link href="/" className="flex items-center shrink-0 absolute left-0 top-0 z-10 bg-white rounded-br-2xl shadow-md px-4 pt-1.5 pb-2">
           <Image
             src="/logo.png"
             alt="RS Concrete Creations & Landscaping"
             width={1144}
             height={675}
-            className="h-[44px] md:h-[64px] w-auto object-contain"
+            className="h-[64px] w-auto object-contain"
             priority
           />
         </Link>
 
-        {/* Desktop links */}
-        <div className="hidden md:flex flex-1 items-center gap-7 md:pl-[190px] lg:pl-[210px]">
+        <div className="flex flex-1 items-center gap-7 pl-[190px] lg:pl-[210px]">
           {links.map((l) => (
             <Link
               key={l.href}
@@ -61,41 +92,9 @@ export default function Navbar() {
             Get a Free Quote
           </Link>
         </div>
-
-        {/* Mobile: labeled pill buttons + social icons + hamburger */}
-        <div className="md:hidden flex items-center gap-3">
-          <a
-            href="https://www.instagram.com/rsconcreting/"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Instagram"
-            className="flex items-center opacity-90 hover:opacity-100 transition-opacity duration-200"
-          >
-            <Image src="/instagram.png" alt="Instagram" width={28} height={28} className="h-7 w-7 object-contain" />
-          </a>
-          <a
-            href="https://www.facebook.com/profile.php?id=61550892891589"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Facebook"
-            className="flex items-center opacity-90 hover:opacity-100 transition-opacity duration-200"
-          >
-            <Image src="/fb.png" alt="Facebook" width={28} height={28} className="h-7 w-7 object-contain" />
-          </a>
-          <a href="tel:0476863201" className="flex items-center">
-            <Image src="/callus.png" alt="Call Us" width={28} height={28} className="h-7 w-auto object-contain" />
-          </a>
-          <button
-            className="ml-1 flex items-center"
-            onClick={() => setOpen(!open)}
-            aria-label="Toggle menu"
-          >
-            {open ? <X className="w-6 h-6" /> : <Image src="/burgermenu.png" alt="Menu" width={32} height={32} className="h-8 w-8 object-contain" />}
-          </button>
-        </div>
       </div>
 
-      {/* Mobile menu */}
+      {/* ── Mobile slide-down menu ── */}
       {open && (
         <div className="md:hidden bg-white border-t border-gray-100">
           <div className="px-6 py-5 flex flex-col gap-4">
@@ -119,22 +118,10 @@ export default function Navbar() {
               Get a Free Quote
             </Link>
             <div className="flex items-center gap-4 pt-1">
-              <a
-                href="https://www.instagram.com/rsconcreting/"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Instagram"
-                className="opacity-90 hover:opacity-100 transition-opacity duration-200"
-              >
+              <a href="https://www.instagram.com/rsconcreting/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="opacity-90 hover:opacity-100 transition-opacity">
                 <Image src="/instagram.png" alt="Instagram" width={22} height={22} />
               </a>
-              <a
-                href="https://www.facebook.com/profile.php?id=61550892891589"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Facebook"
-                className="opacity-90 hover:opacity-100 transition-opacity duration-200"
-              >
+              <a href="https://www.facebook.com/profile.php?id=61550892891589" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="opacity-90 hover:opacity-100 transition-opacity">
                 <Image src="/fb.png" alt="Facebook" width={22} height={22} />
               </a>
             </div>

@@ -39,7 +39,7 @@ export default function AboutPage() {
   return (
     <>
       {/* ── Page header ───────────────────────────────────── */}
-      <section className="bg-cream-50 pt-[76px] md:pt-[70px]">
+      <section className="bg-cream-50 pt-[64px] md:pt-[54px]">
         <div className="max-w-[1800px] mx-auto px-6 md:px-10 py-12 md:py-16">
           <Eyebrow className="mb-4">Our Story</Eyebrow>
           <h1 className="font-bold tracking-tight text-[2.6rem] md:text-[3.4rem] leading-[1.05] text-ink-900 mb-5">

@@ -72,7 +72,7 @@ export default function HomePage() {
   return (
     <>
       {/* ── Hero ─────────────────────────────────────────── */}
-      <section className="relative bg-white pt-[76px] md:pt-[70px] overflow-hidden">
+      <section className="relative bg-white pt-[64px] md:pt-[54px] overflow-hidden">
         {/* Image: stacked on mobile, right-hand backdrop on desktop */}
         <ImageSlot
           src={heroImage}
