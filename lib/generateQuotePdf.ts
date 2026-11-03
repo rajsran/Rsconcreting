@@ -2,6 +2,7 @@ import { Document, Page, Text, View, Image, StyleSheet, renderToBuffer, Font } f
 import React from "react";
 import path from "path";
 import { QuoteLead, Estimate, calcEstimate, formatSize } from "./pricing";
+import type { LineItem } from "./leadTypes";
 
 Font.register({
   family: "Helvetica",
@@ -223,7 +224,7 @@ const styles = StyleSheet.create({
   },
 });
 
-function QuotePdfDocument({ lead, estimate }: { lead: QuoteLead; estimate: Estimate | null }) {
+function QuotePdfDocument({ lead, estimate, lineItems }: { lead: QuoteLead; estimate: Estimate | null; lineItems?: LineItem[] }) {
   const now = new Date();
   const dateStr = now.toLocaleDateString("en-AU", { day: "2-digit", month: "long", year: "numeric" });
   const quoteNum = `GM-${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, "0")}${String(now.getDate()).padStart(2, "0")}-${String(now.getHours()).padStart(2, "0")}${String(now.getMinutes()).padStart(2, "0")}`;
@@ -302,28 +303,52 @@ function QuotePdfDocument({ lead, estimate }: { lead: QuoteLead; estimate: Estim
           ),
         ),
 
-        // ── Estimate ──
-        estimate
-          ? React.createElement(View, { style: styles.estimateBox },
-              React.createElement(Text, { style: styles.estimateLabel }, "Rough Estimate"),
-              React.createElement(Text, { style: styles.estimateAmount },
-                `$${estimate.low.toLocaleString()} – $${estimate.high.toLocaleString()}`
-              ),
-              React.createElement(Text, { style: styles.estimateNote },
-                `Supply & install · Based on ${estimate.quantity} ${estimate.unit}\nAccurate quote provided after free on-site inspection`
+        // ── Line Items (admin final quote) or Rough Estimate ──
+        lineItems && lineItems.length > 0
+          ? React.createElement(React.Fragment, null,
+              React.createElement(View, { style: styles.table },
+                React.createElement(Text, { style: styles.sectionTitle }, "Pricing Breakdown"),
+                React.createElement(View, { style: styles.tableHeader },
+                  React.createElement(Text, { style: [styles.tableHeaderText, { flex: 3 }] }, "Description"),
+                  React.createElement(Text, { style: [styles.tableHeaderText, { flex: 1, textAlign: "right" }] }, "Amount"),
+                ),
+                ...lineItems.map(({ description, amount }, i) =>
+                  React.createElement(View, { key: i, style: [styles.tableRow, i % 2 === 1 ? styles.tableRowAlt : {}] },
+                    React.createElement(Text, { style: [styles.tableCell, { flex: 3 }] }, description),
+                    React.createElement(Text, { style: [styles.tableCellBold, { flex: 1, textAlign: "right" }] }, `$${amount.toLocaleString()}`),
+                  )
+                ),
+                React.createElement(View, { style: { flexDirection: "row", paddingVertical: 10, paddingHorizontal: 12, backgroundColor: "#1a1a2e", borderRadius: 4, marginTop: 2 } },
+                  React.createElement(Text, { style: { flex: 3, fontSize: 10, fontFamily: "Helvetica-Bold", color: "#ffffff" } }, "TOTAL"),
+                  React.createElement(Text, { style: { flex: 1, fontSize: 10, fontFamily: "Helvetica-Bold", color: "#BA9662", textAlign: "right" } },
+                    `$${lineItems.reduce((s, i) => s + i.amount, 0).toLocaleString()}`
+                  ),
+                ),
               ),
             )
-          : React.createElement(View, { style: styles.noEstimateBox },
-              React.createElement(Text, { style: styles.noEstimateTitle }, "Free On-Site Inspection Required"),
-              React.createElement(Text, { style: styles.noEstimateNote },
-                "We'll visit your property, measure up, and provide a fixed accurate quote — no obligation."
+          : estimate
+            ? React.createElement(View, { style: styles.estimateBox },
+                React.createElement(Text, { style: styles.estimateLabel }, "Rough Estimate"),
+                React.createElement(Text, { style: styles.estimateAmount },
+                  `$${estimate.low.toLocaleString()} – $${estimate.high.toLocaleString()}`
+                ),
+                React.createElement(Text, { style: styles.estimateNote },
+                  `Supply & install · Based on ${estimate.quantity} ${estimate.unit}\nAccurate quote provided after free on-site inspection`
+                ),
+              )
+            : React.createElement(View, { style: styles.noEstimateBox },
+                React.createElement(Text, { style: styles.noEstimateTitle }, "Free On-Site Inspection Required"),
+                React.createElement(Text, { style: styles.noEstimateNote },
+                  "We'll visit your property, measure up, and provide a fixed accurate quote — no obligation."
+                ),
               ),
-            ),
 
         // ── Disclaimer ──
         React.createElement(View, { style: styles.disclaimer },
           React.createElement(Text, { style: styles.disclaimerText },
-            "IMPORTANT: This is a rough estimate only, based on the information provided. Final pricing depends on site conditions, access, soil type, excavation requirements, and materials selected. All prices are subject to change. This estimate is valid for 30 days from the date above. A free on-site inspection is required before any formal quote or contract is issued."
+            lineItems && lineItems.length > 0
+              ? "This quote is valid for 30 days from the date above. All prices are inclusive of supply and installation unless stated otherwise. Work is subject to our standard terms and conditions."
+              : "IMPORTANT: This is a rough estimate only, based on the information provided. Final pricing depends on site conditions, access, soil type, excavation requirements, and materials selected. All prices are subject to change. This estimate is valid for 30 days from the date above. A free on-site inspection is required before any formal quote or contract is issued."
           ),
         ),
 
@@ -341,9 +366,9 @@ function QuotePdfDocument({ lead, estimate }: { lead: QuoteLead; estimate: Estim
   );
 }
 
-export async function generateQuotePdf(lead: QuoteLead): Promise<Buffer> {
+export async function generateQuotePdf(lead: QuoteLead, lineItems?: LineItem[]): Promise<Buffer> {
   const estimate = calcEstimate(lead);
-  const doc = QuotePdfDocument({ lead, estimate });
+  const doc = QuotePdfDocument({ lead, estimate, lineItems });
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const buffer = await renderToBuffer(doc as any);
   return Buffer.from(buffer);

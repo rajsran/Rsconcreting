@@ -15,6 +15,7 @@ CREATE TABLE IF NOT EXISTS quote_leads (
   timeline      TEXT,
   estimate_low  INTEGER,
   estimate_high INTEGER,
+  postcode      TEXT,
   status        TEXT NOT NULL DEFAULT 'new'   -- new | contacted | won | lost
 );
 CREATE INDEX IF NOT EXISTS quote_leads_created_idx ON quote_leads (created_at DESC);

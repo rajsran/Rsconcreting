@@ -19,11 +19,12 @@ export async function saveQuoteLead(lead: QuoteLead): Promise<number> {
   const estimate = calcEstimate(lead);
   const rows = (await getSql()`
     INSERT INTO quote_leads
-      (name, email, phone, service, type, size, timeline, estimate_low, estimate_high)
+      (name, email, phone, postcode, service, type, size, timeline, estimate_low, estimate_high)
     VALUES
       (${clean(lead.name, 120)}, ${clean(lead.email, 200)}, ${clean(lead.phone, 40)},
-       ${clean(lead.service, 80)}, ${clean(lead.type, 120)}, ${clean(lead.size, 120)},
-       ${clean(lead.timeline, 120)}, ${estimate?.low ?? null}, ${estimate?.high ?? null})
+       ${clean(lead.postcode, 10)}, ${clean(lead.service, 80)}, ${clean(lead.type, 120)},
+       ${clean(lead.size, 120)}, ${clean(lead.timeline, 120)},
+       ${estimate?.low ?? null}, ${estimate?.high ?? null})
     RETURNING id`) as { id: string | number }[];
   return Number(rows[0].id);
 }
@@ -49,13 +50,13 @@ type Row = Record<string, any>;
 export async function listQuoteLeads(limit = 200): Promise<QuoteLeadRecord[]> {
   try {
     const rows = (await getSql()`
-      SELECT id, created_at, name, email, phone, service, type, size, timeline,
+      SELECT id, created_at, name, email, phone, postcode, service, type, size, timeline,
              estimate_low, estimate_high, status
       FROM quote_leads ORDER BY created_at DESC LIMIT ${limit}`) as Row[];
     return rows.map((r) => ({
       id: Number(r.id),
       createdAt: new Date(r.created_at).toISOString(),
-      name: r.name, email: r.email, phone: r.phone,
+      name: r.name, email: r.email, phone: r.phone, postcode: r.postcode,
       service: r.service, type: r.type, size: r.size, timeline: r.timeline,
       estimateLow: r.estimate_low, estimateHigh: r.estimate_high,
       status: r.status,

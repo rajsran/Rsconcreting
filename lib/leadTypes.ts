@@ -6,12 +6,18 @@ export const MESSAGE_STATUSES = ['new', 'replied'] as const;
 export type LeadStatus = (typeof LEAD_STATUSES)[number];
 export type MessageStatus = (typeof MESSAGE_STATUSES)[number];
 
+export interface LineItem {
+  description: string;
+  amount: number;
+}
+
 export interface QuoteLeadRecord {
   id: number;
   createdAt: string;
   name: string | null;
   email: string | null;
   phone: string | null;
+  postcode: string | null;
   service: string;
   type: string | null;
   size: string | null;
