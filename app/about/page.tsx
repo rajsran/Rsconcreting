@@ -72,7 +72,7 @@ export default function AboutPage() {
             <Heading plain="Built from the ground up" gold="— literally." className="text-3xl md:text-[2.1rem] mb-5" />
             <div className="space-y-4 text-ink-700 text-sm leading-relaxed">
               <p>
-                Groundmakers Concrete and Landscaping was founded by brothers Arsdeep and Gurnaib Singh with a simple mission: deliver premium outdoor construction work with the honesty and care of a family business.
+                RS Concrete Creations and Landscaping was founded by brothers Arsdeep and Gurnaib Singh with a simple mission: deliver premium outdoor construction work with the honesty and care of a family business.
               </p>
               <p>
                 Servicing Melbourne&apos;s surrounding suburbs, we&apos;ve worked on hundreds of projects across the region &#8212; from small garden makeovers to full property transformations. Every job gets our personal attention.

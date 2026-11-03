@@ -237,7 +237,7 @@ function QuotePdfDocument({ lead, estimate, lineItems }: { lead: QuoteLead; esti
   ];
 
   return (
-    React.createElement(Document, { title: `Groundmakers Quote — ${lead.name ?? "Customer"}` },
+    React.createElement(Document, { title: `RS Concreting Quote — ${lead.name ?? "Customer"}` },
       React.createElement(Page, { size: "A4", style: styles.page },
 
         // ── Header ──
@@ -371,7 +371,7 @@ function QuotePdfDocument({ lead, estimate, lineItems }: { lead: QuoteLead; esti
             `RS Concrete Creations & Landscaping Pty Ltd · ABN ${COMPANY_ABN}\nMelbourne Surrounding Suburbs`
           ),
           React.createElement(Text, { style: styles.footerRight },
-            "0476 863 201\nquotes@groundmakers.com.au"
+            "0476 863 201\nquotes@rsconcreting.com.au"
           ),
         ),
       )

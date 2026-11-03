@@ -27,7 +27,7 @@ export default function Footer() {
             <Shovel className="w-5 h-5 text-white" />
           </div>
           <div className="leading-tight">
-            <span className="block text-white font-black text-sm tracking-widest uppercase">Groundmakers</span>
+            <span className="block text-white font-black text-sm tracking-widest uppercase">RS Concreting</span>
             <span className="block text-violet-500 text-[10px] tracking-widest uppercase">Concrete &amp; Landscaping</span>
           </div>
         </div>
@@ -83,7 +83,7 @@ export default function Footer() {
       {/* Bottom bar */}
       <div className="border-t border-white/5 px-5 py-4">
         <p className="text-white/20 text-xs text-center">
-          © {new Date().getFullYear()} Groundmakers Concrete &amp; Landscaping. All rights reserved.
+          © {new Date().getFullYear()} RS Concrete Creations &amp; Landscaping. All rights reserved.
         </p>
       </div>
     </footer>

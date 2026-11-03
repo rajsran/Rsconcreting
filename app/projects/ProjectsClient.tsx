@@ -225,7 +225,7 @@ export default function ProjectsClient() {
             Our Projects
           </h1>
           <p className="text-gray-500 text-sm max-w-xl mx-auto">
-            Real work by Groundmakers — concrete, landscaping, decking and fencing
+            Real work by RS Concreting — concrete, landscaping, decking and fencing
             across Melbourne&apos;s West.
           </p>
         </div>
