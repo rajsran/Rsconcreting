@@ -24,22 +24,22 @@ export default function Navbar() {
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur border-b border-gray-100">
-      <div className="max-w-[1800px] mx-auto pl-3 pr-3 py-2.5 md:py-0 md:h-[70px] md:px-10 flex items-center justify-between">
+      <div className="max-w-[1800px] mx-auto pl-3 pr-3 py-1.5 md:py-0 md:h-[54px] md:px-10 flex items-center justify-between">
 
         {/* Logo */}
-        <Link href="/" className="flex items-center shrink-0 md:absolute md:left-0 md:top-0 md:z-10 md:bg-white md:rounded-br-3xl md:shadow-md md:px-6 md:pt-2 md:pb-3">
+        <Link href="/" className="flex items-center shrink-0 md:absolute md:left-0 md:top-0 md:z-10 md:bg-white md:rounded-br-2xl md:shadow-md md:px-4 md:pt-1.5 md:pb-2">
           <Image
             src="/logo.png"
             alt="RS Concrete Creations & Landscaping"
             width={1144}
             height={675}
-            className="h-[60px] md:h-[88px] w-auto object-contain"
+            className="h-[44px] md:h-[64px] w-auto object-contain"
             priority
           />
         </Link>
 
         {/* Desktop links */}
-        <div className="hidden md:flex flex-1 items-center gap-9 md:pl-[240px] lg:pl-[270px]">
+        <div className="hidden md:flex flex-1 items-center gap-7 md:pl-[190px] lg:pl-[210px]">
           {links.map((l) => (
             <Link
               key={l.href}
@@ -55,7 +55,7 @@ export default function Navbar() {
           ))}
           <Link
             href="/contact"
-            className="ml-auto inline-flex items-center gap-2 px-6 py-3.5 rounded-md bg-violet-600 text-white text-xs font-semibold tracking-wider uppercase hover:bg-violet-700 transition-all duration-200"
+            className="ml-auto inline-flex items-center gap-2 px-5 py-2.5 rounded-md bg-violet-600 text-white text-xs font-semibold tracking-wider uppercase hover:bg-violet-700 transition-all duration-200"
           >
             <Phone className="w-3.5 h-3.5" />
             Get a Free Quote
@@ -71,7 +71,7 @@ export default function Navbar() {
             aria-label="Instagram"
             className="flex items-center opacity-90 hover:opacity-100 transition-opacity duration-200"
           >
-            <Image src="/instagram.png" alt="Instagram" width={32} height={32} className="h-8 w-8 object-contain" />
+            <Image src="/instagram.png" alt="Instagram" width={28} height={28} className="h-7 w-7 object-contain" />
           </a>
           <a
             href="https://www.facebook.com/profile.php?id=61550892891589"
@@ -80,10 +80,10 @@ export default function Navbar() {
             aria-label="Facebook"
             className="flex items-center opacity-90 hover:opacity-100 transition-opacity duration-200"
           >
-            <Image src="/fb.png" alt="Facebook" width={32} height={32} className="h-8 w-8 object-contain" />
+            <Image src="/fb.png" alt="Facebook" width={28} height={28} className="h-7 w-7 object-contain" />
           </a>
           <a href="tel:0476863201" className="flex items-center">
-            <Image src="/callus.png" alt="Call Us" width={32} height={32} className="h-8 w-auto object-contain" />
+            <Image src="/callus.png" alt="Call Us" width={28} height={28} className="h-7 w-auto object-contain" />
           </a>
           <button
             className="ml-1 flex items-center"
