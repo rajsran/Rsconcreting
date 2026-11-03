@@ -4,7 +4,7 @@ export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://rsconcreti
 
 export const BUSINESS = {
   name: "RS Concrete Creations & Landscaping",
-  phone: "+61433457437",
+  phone: "+61476863201",
   email: "info@rsconcreting.com.au",
   street: "19 Zoe Street",
   suburb: "Rockbank",

@@ -384,11 +384,11 @@ export default function QuoteChat({ isOpen, onClose }: QuoteChatProps) {
 
                     {/* CTAs */}
                     <a
-                      href="tel:0433457437"
+                      href="tel:0476863201"
                       className="flex items-center justify-center gap-2.5 w-full py-4 bg-violet-600 text-white font-bold rounded-2xl text-sm hover:bg-violet-700 active:scale-[0.98] transition-all"
                     >
                       <Phone className="w-4 h-4" />
-                      Call Now: 0433 457 437
+                      Call Now: 0476 863 201
                     </a>
 
                     <button

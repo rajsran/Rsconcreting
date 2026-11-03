@@ -65,7 +65,7 @@ export default function Navbar() {
         {/* Mobile: labeled pill buttons + social icons + hamburger */}
         <div className="md:hidden flex items-center gap-3">
           <a
-            href="https://www.instagram.com/groundmakers?utm_source=qr"
+            href="https://www.instagram.com/rsconcreting/"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Instagram"
@@ -82,7 +82,7 @@ export default function Navbar() {
           >
             <Image src="/fb.png" alt="Facebook" width={32} height={32} className="h-8 w-8 object-contain" />
           </a>
-          <a href="tel:0433457437" className="flex items-center">
+          <a href="tel:0476863201" className="flex items-center">
             <Image src="/callus.png" alt="Call Us" width={32} height={32} className="h-8 w-auto object-contain" />
           </a>
           <button
@@ -120,7 +120,7 @@ export default function Navbar() {
             </Link>
             <div className="flex items-center gap-4 pt-1">
               <a
-                href="https://www.instagram.com/groundmakers?utm_source=qr"
+                href="https://www.instagram.com/rsconcreting/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"

@@ -11,10 +11,9 @@ const quickLinks = [
 
 const contactItems = [
   { Icon: MapPin,    content: "19 Zoe Street, Rockbank VIC",   href: "https://maps.google.com/?q=19+Zoe+Street+Rockbank+VIC" },
-  { Icon: Phone,     content: "0433 457 437",                  href: "tel:0433457437"  },
-  { Icon: Phone,     content: "0472 547 475",                  href: "tel:0472547475"  },
+  { Icon: Phone,     content: "0476 863 201",                  href: "tel:0476863201"  },
   { Icon: Clock,     content: "Mon–Fri, 8am – 4pm",           href: null              },
-  { Icon: Instagram, content: "@groundmakers",                 href: "https://instagram.com/groundmakers" },
+  { Icon: Instagram, content: "@rsconcreting",                 href: "https://www.instagram.com/rsconcreting/" },
 ];
 
 export default function Footer() {
@@ -73,7 +72,7 @@ export default function Footer() {
 
         {/* CTA */}
         <a
-          href="tel:0433457437"
+          href="tel:0476863201"
           className="flex items-center justify-center gap-2 w-full py-3.5 bg-violet-600 hover:bg-violet-700 active:scale-[0.98] text-white font-bold rounded-2xl text-sm transition-all mb-6"
         >
           <Phone className="w-4 h-4" />

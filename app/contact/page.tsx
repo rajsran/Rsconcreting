@@ -65,8 +65,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <p className="text-ink-300 text-xs uppercase tracking-widest mb-1">Phone</p>
-                  <a href="tel:0433457437" className="text-ink-900 font-semibold hover:text-violet-600 transition-colors block">0433 457 437</a>
-                  <a href="tel:0472547475" className="text-ink-900 font-semibold hover:text-violet-600 transition-colors block">0472 547 475</a>
+                  <a href="tel:0476863201" className="text-ink-900 font-semibold hover:text-violet-600 transition-colors block">0476 863 201</a>
                 </div>
               </li>
               <li className="flex items-start gap-4">
@@ -95,7 +94,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <p className="text-ink-300 text-xs uppercase tracking-widest mb-1">Instagram</p>
-                  <a href="#" className="text-ink-900 font-semibold hover:text-violet-600 transition-colors">@groundmakers</a>
+                  <a href="https://www.instagram.com/rsconcreting/" target="_blank" rel="noopener noreferrer" className="text-ink-900 font-semibold hover:text-violet-600 transition-colors">@rsconcreting</a>
                 </div>
               </li>
             </ul>

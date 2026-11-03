@@ -63,15 +63,15 @@ function buildCustomerHtml(lead: QuoteLead, estimate: Estimate | null): string {
       </p>
 
       <div style="text-align:center;margin:24px 0;">
-        <a href="tel:0433457437" style="display:inline-block;background:#BA9662;color:#ffffff;text-decoration:none;padding:14px 32px;border-radius:8px;font-weight:bold;font-size:14px;">
-          Call 0433 457 437
+        <a href="tel:0476863201" style="display:inline-block;background:#BA9662;color:#ffffff;text-decoration:none;padding:14px 32px;border-radius:8px;font-weight:bold;font-size:14px;">
+          Call 0476 863 201
         </a>
       </div>
     </div>
 
     <div style="background:#f9fafb;padding:20px 32px;border:1px solid #e5e7eb;border-top:none;border-radius:0 0 10px 10px;text-align:center;">
       <p style="color:#9ca3af;font-size:11px;margin:0;">Groundmakers Concrete &amp; Landscaping · Rockbank, Melbourne VIC 3335</p>
-      <p style="color:#9ca3af;font-size:11px;margin:4px 0 0;">quotes@groundmakers.com.au · 0433 457 437</p>
+      <p style="color:#9ca3af;font-size:11px;margin:4px 0 0;">quotes@groundmakers.com.au · 0476 863 201</p>
     </div>
   </div>`;
 }
