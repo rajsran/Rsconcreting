@@ -187,7 +187,7 @@ export default function QuoteChat({ isOpen, onClose }: QuoteChatProps) {
 
             {/* ══ DETAILS ══ */}
             {step === "details" && (
-              <div className="flex flex-col gap-3">
+              <form className="flex flex-col gap-3" onSubmit={e => { e.preventDefault(); submitDetails(); }}>
                 <div className="mb-1">
                   <div className="w-8 h-8 rounded-xl bg-violet-100 flex items-center justify-center mb-2">
                     <User className="w-4 h-4 text-violet-600" />
@@ -248,12 +248,12 @@ export default function QuoteChat({ isOpen, onClose }: QuoteChatProps) {
                 </div>
 
                 <button
-                  onClick={submitDetails}
+                  type="submit"
                   className="w-full py-3.5 bg-violet-600 text-white font-bold rounded-2xl text-sm hover:bg-violet-700 transition-all active:scale-[0.98] flex items-center justify-center gap-2 mt-1"
                 >
                   Get My Quote <ChevronRight className="w-4 h-4" />
                 </button>
-              </div>
+              </form>
             )}
 
             {/* ══ SERVICE ══ */}
