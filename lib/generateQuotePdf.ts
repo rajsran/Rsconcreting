@@ -8,8 +8,7 @@ Font.register({
   fonts: [],
 });
 
-// ── Update this with the real ABN ──────────────────────────────────────────────
-const COMPANY_ABN = "XX XXX XXX XXX";
+const COMPANY_ABN = "77 668 809 050";
 const LOGO_PATH = path.join(process.cwd(), "public", "logo.png");
 
 const styles = StyleSheet.create({
@@ -271,15 +270,11 @@ function QuotePdfDocument({ lead, estimate }: { lead: QuoteLead; estimate: Estim
             React.createElement(Text, { style: styles.sectionTitle }, "From"),
             React.createElement(View, { style: styles.infoRow },
               React.createElement(Text, { style: styles.infoLabel }, "Company"),
-              React.createElement(Text, { style: styles.infoValue }, "Groundmakers Concrete & Landscaping"),
+              React.createElement(Text, { style: styles.infoValue }, "RS Concrete Creations & Landscaping Pty Ltd"),
             ),
             React.createElement(View, { style: styles.infoRow },
               React.createElement(Text, { style: styles.infoLabel }, "ABN"),
               React.createElement(Text, { style: styles.infoValue }, COMPANY_ABN),
-            ),
-            React.createElement(View, { style: styles.infoRow },
-              React.createElement(Text, { style: styles.infoLabel }, "Contact"),
-              React.createElement(Text, { style: styles.infoValue }, "Arsdeep & Gurnaib Singh"),
             ),
             React.createElement(View, { style: styles.infoRow },
               React.createElement(Text, { style: styles.infoLabel }, "Phone"),
@@ -335,7 +330,7 @@ function QuotePdfDocument({ lead, estimate }: { lead: QuoteLead; estimate: Estim
         // ── Footer ──
         React.createElement(View, { style: styles.footer },
           React.createElement(Text, { style: styles.footerLeft },
-            `Groundmakers Concrete & Landscaping · ABN ${COMPANY_ABN}\nMelbourne Surrounding Suburbs`
+            `RS Concrete Creations & Landscaping Pty Ltd · ABN ${COMPANY_ABN}\nMelbourne Surrounding Suburbs`
           ),
           React.createElement(Text, { style: styles.footerRight },
             "0476 863 201\nquotes@groundmakers.com.au"
