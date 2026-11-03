@@ -30,14 +30,14 @@ function buildCustomerHtml(lead: QuoteLead, estimate: Estimate | null): string {
   return `
   <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;color:#1a1a2e;">
     <div style="background:#BA9662;padding:28px 32px;border-radius:10px 10px 0 0;">
-      <img src="https://groundmakers.com.au/logo.png" alt="Groundmakers" style="height:48px;max-width:200px;object-fit:contain;display:block;margin-bottom:8px;" />
-      <p style="color:#fdba74;margin:0;font-size:13px;">Concrete &amp; Landscaping · Melbourne's West</p>
+      <img src="https://rsconcreting.com.au/logo.png" alt="RS Concreting" style="height:48px;max-width:200px;object-fit:contain;display:block;margin-bottom:8px;" />
+      <p style="color:#fff8ee;margin:0;font-size:13px;">RS Concrete Creations &amp; Landscaping · Melbourne Suburbs</p>
     </div>
 
     <div style="background:#ffffff;padding:32px;border:1px solid #e5e7eb;border-top:none;">
       <p style="font-size:16px;margin:0 0 16px;">Hi ${firstName},</p>
       <p style="color:#374151;line-height:1.6;margin:0 0 20px;">
-        Thanks for reaching out to Groundmakers! Here's your quote summary based on the details you provided. We've also attached a <strong>PDF copy</strong> to this email for your records.
+        Thanks for reaching out to RS Concreting! Here's your quote summary based on the details you provided. We've also attached a <strong>PDF copy</strong> to this email for your records.
       </p>
 
       <h2 style="font-size:13px;color:#BA9662;letter-spacing:1px;text-transform:uppercase;margin:0 0 12px;">Job Details</h2>
@@ -70,8 +70,8 @@ function buildCustomerHtml(lead: QuoteLead, estimate: Estimate | null): string {
     </div>
 
     <div style="background:#f9fafb;padding:20px 32px;border:1px solid #e5e7eb;border-top:none;border-radius:0 0 10px 10px;text-align:center;">
-      <p style="color:#9ca3af;font-size:11px;margin:0;">Groundmakers Concrete &amp; Landscaping · Melbourne Surrounding Suburbs</p>
-      <p style="color:#9ca3af;font-size:11px;margin:4px 0 0;">quotes@groundmakers.com.au · 0476 863 201</p>
+      <p style="color:#9ca3af;font-size:11px;margin:0;">RS Concrete Creations &amp; Landscaping Pty Ltd · ABN 77 668 809 050</p>
+      <p style="color:#9ca3af;font-size:11px;margin:4px 0 0;">quotes@rsconcreting.com.au · 0476 863 201</p>
     </div>
   </div>`;
 }
@@ -111,7 +111,7 @@ function buildBusinessHtml(lead: QuoteLead, estimate: Estimate | null): string {
 export async function sendQuoteEmail(lead: QuoteLead, pdfBuffer: Buffer): Promise<void> {
   const estimate = calcEstimate(lead);
   const pdfAttachment = {
-    Name: `Groundmakers-Quote-${lead.name?.replace(/\s+/g, "-") ?? "Customer"}.pdf`,
+    Name: `RS-Concreting-Quote-${lead.name?.replace(/\s+/g, "-") ?? "Customer"}.pdf`,
     Content: pdfBuffer.toString("base64"),
     ContentType: "application/pdf",
     ContentID: "",
@@ -124,7 +124,7 @@ export async function sendQuoteEmail(lead: QuoteLead, pdfBuffer: Buffer): Promis
     emails.push({
       From: FROM_EMAIL,
       To: lead.email,
-      Subject: `Your Groundmakers Quote — ${lead.type || lead.service}`,
+      Subject: `Your RS Concreting Quote — ${lead.type || lead.service}`,
       HtmlBody: buildCustomerHtml(lead, estimate),
       Attachments: [pdfAttachment],
       MessageStream: "outbound",
