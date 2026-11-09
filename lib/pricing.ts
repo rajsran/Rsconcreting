@@ -19,8 +19,9 @@ export const PRICING: Record<string, Record<string, { low: number; high: number;
     "Composite Decking":   { low: 350, high: 380, unit: "m²" },
   },
   Fencing: {
-    "Colorbond Steel": { low: 100, high: 120, unit: "lm" },
-    "Timber Paling":   { low: 100, high: 120, unit: "lm" },
+    "Colorbond Steel":  { low: 100, high: 120, unit: "lm" },
+    "Timber Paling":    { low: 100, high: 120, unit: "lm" },
+    "Aluminium Slat":   { low: 150, high: 200, unit: "lm" },
   },
 };
 
