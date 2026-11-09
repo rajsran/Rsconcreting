@@ -109,7 +109,7 @@ export default function HomePage() {
             <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
               <button
                 onClick={() => setIsChatOpen(true)}
-                className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-violet-600 text-white text-sm font-bold tracking-widest uppercase rounded-xl shadow-lg hover:bg-violet-700 hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 w-full sm:w-auto"
+                className="btn-pulse-violet inline-flex items-center justify-center gap-3 px-8 py-4 bg-gradient-to-br from-[#BA9662] via-[#9A7A3E] to-[#6B4E1A] text-white text-sm font-bold tracking-widest uppercase rounded-xl active:scale-[0.98] w-full sm:w-auto"
               >
                 Get a Free Quote <ArrowRight className="w-5 h-5" />
               </button>
