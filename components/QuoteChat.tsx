@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import {
   X, Hammer, Leaf, Layers, ShieldCheck,
   ChevronRight, Phone, CheckCircle2,
-  MessageCircle, Ruler, Calendar, User, Sparkles,
+  MessageCircle, Ruler, Calendar, User, Sparkles, Loader2,
 } from "lucide-react";
 import { PRICING, calcEstimate, formatSize, unitFor } from "@/lib/pricing";
 
@@ -16,6 +16,7 @@ interface Answers {
   phone?: string;
   email?: string;
   postcode?: string;
+  suburb?: string;
   service?: string;
   type?: string;
   size?: string;
@@ -66,6 +67,10 @@ export default function QuoteChat({ isOpen, onClose }: QuoteChatProps) {
   // Details form state
   const [detailsForm, setDetailsForm] = useState({ name: "", phone: "", email: "", postcode: "" });
   const [detailsErrors, setDetailsErrors] = useState<Partial<Record<keyof typeof detailsForm, string>>>({});
+  const [suburbs,       setSuburbs]       = useState<string[]>([]);
+  const [suburb,        setSuburb]        = useState("");
+  const [suburbLoading, setSuburbLoading] = useState(false);
+  const [suburbError,   setSuburbError]   = useState(false);
 
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef  = useRef<HTMLInputElement>(null);
@@ -77,9 +82,35 @@ export default function QuoteChat({ isOpen, onClose }: QuoteChatProps) {
       setCustomText("");
       setDetailsForm({ name: "", phone: "", email: "", postcode: "" });
       setDetailsErrors({});
+      setSuburbs([]);
+      setSuburb("");
+      setSuburbLoading(false);
+      setSuburbError(false);
       submittedRef.value = false;
     }
   }, [isOpen]);
+
+  // Fetch suburbs when postcode reaches 4 digits
+  useEffect(() => {
+    if (detailsForm.postcode.length !== 4) {
+      setSuburbs([]);
+      setSuburb("");
+      return;
+    }
+    let cancelled = false;
+    setSuburbLoading(true);
+    fetch(`/api/suburb?postcode=${detailsForm.postcode}`)
+      .then(r => r.json())
+      .then(data => {
+        if (cancelled) return;
+        const list: string[] = data.suburbs ?? [];
+        setSuburbs(list);
+        if (list.length === 1) setSuburb(list[0]);
+      })
+      .catch(() => { if (!cancelled) setSuburbs([]); })
+      .finally(() => { if (!cancelled) setSuburbLoading(false); });
+    return () => { cancelled = true; };
+  }, [detailsForm.postcode]);
 
   const scrollTop = () =>
     setTimeout(() => scrollRef.current?.scrollTo({ top: 0, behavior: "smooth" }), 60);
@@ -97,7 +128,12 @@ export default function QuoteChat({ isOpen, onClose }: QuoteChatProps) {
 
   const submitDetails = () => {
     if (!validateDetails()) return;
-    setAnswers(prev => ({ ...prev, ...detailsForm }));
+    if (suburbs.length > 1 && !suburb) {
+      setSuburbError(true);
+      setTimeout(() => setSuburbError(false), 600);
+      return;
+    }
+    setAnswers(prev => ({ ...prev, ...detailsForm, suburb: suburb || undefined }));
     setStep("service");
     scrollTop();
   };
@@ -239,15 +275,54 @@ export default function QuoteChat({ isOpen, onClose }: QuoteChatProps) {
 
                   <div>
                     <label className="text-ink-600 text-xs font-semibold mb-1 block">Postcode</label>
-                    <input
-                      type="text"
-                      value={detailsForm.postcode}
-                      onChange={e => setDetailsForm(f => ({ ...f, postcode: e.target.value.replace(/\D/g, "").slice(0, 4) }))}
-                      placeholder="e.g. 3335"
-                      className={`w-full bg-white border rounded-2xl px-4 py-3 text-sm text-ink-900 placeholder-ink-300 focus:outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-100 transition-all ${detailsErrors.postcode ? "border-red-400" : "border-gray-200"}`}
-                    />
+                    <div className="relative">
+                      <input
+                        type="text"
+                        inputMode="numeric"
+                        value={detailsForm.postcode}
+                        onChange={e => {
+                          setSuburb("");
+                          setDetailsForm(f => ({ ...f, postcode: e.target.value.replace(/\D/g, "").slice(0, 4) }));
+                        }}
+                        placeholder="e.g. 3335"
+                        className={`w-full bg-white border rounded-2xl px-4 py-3 text-sm text-ink-900 placeholder-ink-300 focus:outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-100 transition-all ${detailsErrors.postcode ? "border-red-400" : "border-gray-200"}`}
+                      />
+                      {suburbLoading && (
+                        <Loader2 className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-violet-400 animate-spin" />
+                      )}
+                    </div>
                     {detailsErrors.postcode && <p className="text-red-500 text-xs mt-1">{detailsErrors.postcode}</p>}
                   </div>
+
+                  {suburbs.length > 1 && (
+                    <div className={`flex flex-col gap-1.5 transition-all ${suburbError ? "animate-pulse" : ""}`}>
+                      <p className={`text-[11px] px-1 font-semibold transition-colors ${suburbError ? "text-red-500" : "text-ink-400"}`}>
+                        {suburbError ? "Please select your suburb to continue" : "Select your suburb"}
+                      </p>
+                      <div className={`flex flex-wrap gap-2 rounded-xl p-2 transition-all ${suburbError ? "border-2 border-red-400 bg-red-50" : ""}`}>
+                        {suburbs.map(s => (
+                          <button
+                            key={s}
+                            type="button"
+                            onClick={() => { setSuburb(s); setSuburbError(false); }}
+                            className={`px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all ${
+                              suburb === s
+                                ? "bg-violet-600 text-white border-violet-600"
+                                : suburbError
+                                  ? "bg-white text-red-700 border-red-300 hover:border-red-500"
+                                  : "bg-white text-ink-700 border-gray-200 hover:border-violet-400 hover:text-violet-700"
+                            }`}
+                          >
+                            {s}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {suburbs.length === 1 && (
+                    <p className="text-xs text-violet-600 font-semibold px-1">📍 {suburbs[0]}</p>
+                  )}
                 </div>
 
                 <button
@@ -329,6 +404,7 @@ export default function QuoteChat({ isOpen, onClose }: QuoteChatProps) {
 
                     <div className="bg-white rounded-2xl p-4 shadow-sm divide-y divide-gray-100">
                       {[
+                        { label: "Location", value: answers.suburb ? `${answers.suburb} ${answers.postcode}` : answers.postcode },
                         { label: "Service",  value: answers.type || answers.service },
                         { label: "Size",     value: formatSize(answers) },
                         { label: "Timeline", value: answers.timeline },

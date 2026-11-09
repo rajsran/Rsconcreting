@@ -20,7 +20,7 @@ export async function POST(req: NextRequest) {
     console.log(`   Name:     ${lead.name     ?? "Not provided"}`);
     console.log(`   Email:    ${lead.email    ?? "Not provided"}`);
     console.log(`   Phone:    ${lead.phone    ?? "Not provided"}`);
-    console.log(`   Postcode: ${lead.postcode ?? "Not provided"}`);
+    console.log(`   Postcode: ${lead.postcode ?? "Not provided"}${lead.suburb ? ` · ${lead.suburb}` : ""}`);
     console.log(`   Service:  ${lead.service}`);
     console.log(`   Type:     ${lead.type     ?? "Not specified"}`);
     console.log(`   Desc:     ${lead.size ?? "Not specified"}`);

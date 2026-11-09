@@ -34,6 +34,7 @@ export interface QuoteLead {
   email?: string;
   phone?: string;
   postcode?: string;
+  suburb?: string;
 }
 
 export interface Estimate {
