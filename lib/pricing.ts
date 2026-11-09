@@ -1,8 +1,8 @@
 export const PRICING: Record<string, Record<string, { low: number; high: number; unit: "m²" | "lm" }>> = {
   Concreting: {
-    "Plain Concrete":      { low: 60,  high: 70,  unit: "m²" },
-    "Coloured Concrete":   { low: 70,  high: 80,  unit: "m²" },
-    "Exposed Aggregate":   { low: 100, high: 110, unit: "m²" },
+    "Plain Concrete":      { low: 70,  high: 80,  unit: "m²" },
+    "Coloured Concrete":   { low: 90,  high: 100, unit: "m²" },
+    "Exposed Aggregate":   { low: 110, high: 130, unit: "m²" },
   },
   Landscaping: {
     "Full Garden Design":   { low: 80,  high: 150, unit: "m²" },
@@ -11,8 +11,8 @@ export const PRICING: Record<string, Record<string, { low: number; high: number;
     "Paving & Hardscaping": { low: 63,  high: 170, unit: "m²" },
   },
   Decking: {
-    "Hardwood (Merbau)":   { low: 280, high: 290, unit: "m²" },
-    "Composite Decking":   { low: 300, high: 320, unit: "m²" },
+    "Hardwood (Merbau)":   { low: 320, high: 320, unit: "m²" },
+    "Composite Decking":   { low: 350, high: 380, unit: "m²" },
   },
   Fencing: {
     "Colorbond Steel": { low: 100, high: 120, unit: "lm" },
