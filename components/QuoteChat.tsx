@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import {
   X, Hammer, Leaf, Layers, ShieldCheck,
   ChevronRight, Phone, CheckCircle2,
-  MessageCircle, Ruler, Calendar, User,
+  MessageCircle, Ruler, Calendar, User, Sparkles,
 } from "lucide-react";
 import { PRICING, calcEstimate, formatSize, unitFor } from "@/lib/pricing";
 
@@ -29,18 +29,20 @@ export interface QuoteChatProps {
 
 // ─── Step Options ─────────────────────────────────────────────────────────────
 const SERVICE_OPTIONS = [
-  { label: "Concreting",  Icon: Hammer,      desc: "Driveways, slabs, paths & more" },
-  { label: "Landscaping", Icon: Leaf,        desc: "Gardens, turf & paving" },
-  { label: "Decking",     Icon: Layers,      desc: "Timber & composite decks" },
-  { label: "Fencing",     Icon: ShieldCheck, desc: "Colorbond, timber & glass" },
+  { label: "Concreting",             Icon: Hammer,      desc: "Driveways, slabs, paths & more" },
+  { label: "Landscaping",            Icon: Leaf,        desc: "Gardens, turf & paving" },
+  { label: "Architectural Concrete", Icon: Sparkles,    desc: "Floating steps & bench tops" },
+  { label: "Decking",                Icon: Layers,      desc: "Timber & composite decks" },
+  { label: "Fencing",                Icon: ShieldCheck, desc: "Colorbond, timber & glass" },
 ];
 
-const TYPE_OPTIONS: Record<string, { label: string; desc: string }[]> = Object.fromEntries(
+const TYPE_OPTIONS: Record<string, { label: string; desc: string; enquiry?: boolean }[]> = Object.fromEntries(
   Object.entries(PRICING).map(([service, types]) => [
     service,
     Object.entries(types).map(([label, p]) => ({
       label,
-      desc: `$${p.low}–$${p.high} / ${p.unit}`,
+      desc: p.enquiry ? "Contact for pricing" : `$${p.low}–$${p.high} / ${p.unit}`,
+      enquiry: p.enquiry,
     })),
   ])
 );
@@ -111,6 +113,12 @@ export default function QuoteChat({ isOpen, onClose }: QuoteChatProps) {
       return;
     }
 
+    // Skip size step for enquiry types (e.g. Architectural Bench Top)
+    if (key === "type" && PRICING[next.service ?? ""]?.[value]?.enquiry) {
+      setStep("timeline");
+      return;
+    }
+
     const nextMap: Partial<Record<keyof Answers, Step>> =
       { service: "type", type: "size", size: "timeline" };
 
@@ -131,6 +139,8 @@ export default function QuoteChat({ isOpen, onClose }: QuoteChatProps) {
   };
 
   const isLinear  = unitFor(answers) === "lm";
+  const isSteps   = PRICING[answers.service ?? ""]?.[answers.type ?? ""]?.unit === "step";
+  const isEnquiry = PRICING[answers.service ?? ""]?.[answers.type ?? ""]?.enquiry === true;
   const typeOpts  = answers.service ? (TYPE_OPTIONS[answers.service] ?? []) : [];
   const estimate  = calcEstimate(answers);
   const progress  = Math.round((STEP_ORDER.indexOf(step) / (STEP_ORDER.length - 1)) * 100);
@@ -277,21 +287,21 @@ export default function QuoteChat({ isOpen, onClose }: QuoteChatProps) {
             {/* ══ SIZE ══ */}
             {step === "size" && (
               <Step
-                q={isLinear ? "How long is the project?" : "How large is the area?"}
-                sub={isLinear ? "Enter the total length in metres" : "Enter the total area in square metres"}
+                q={isSteps ? "How many steps?" : isLinear ? "How long is the project?" : "How large is the area?"}
+                sub={isSteps ? "Enter the number of steps — we'll estimate $1,500–$2,000 per step" : isLinear ? "Enter the total length in metres" : "Enter the total area in square metres"}
                 icon={<Ruler className="w-4 h-4 text-violet-600" />}
               >
                 <TextInput
                   inputRef={inputRef}
                   type="number"
                   value={customText}
-                  placeholder={isLinear ? "e.g. 28" : "e.g. 45"}
+                  placeholder={isSteps ? "e.g. 3" : isLinear ? "e.g. 28" : "e.g. 45"}
                   onChange={(v) => setCustomText(v.replace(/[^0-9]/g, ""))}
                   onEnter={() => customText.trim() && advance("size", customText.trim())}
                   onSubmit={() => customText.trim() && advance("size", customText.trim())}
                   submitLabel="Continue"
                 />
-                <NotSure label="Not sure — measure on-site" onClick={() => advance("size", "To be measured on-site")} />
+                {!isSteps && <NotSure label="Not sure — measure on-site" onClick={() => advance("size", "To be measured on-site")} />}
               </Step>
             )}
 
@@ -330,14 +340,26 @@ export default function QuoteChat({ isOpen, onClose }: QuoteChatProps) {
                       ))}
                     </div>
 
-                    {estimate ? (
+                    {isEnquiry ? (
+                      <div className="bg-ink-900 rounded-2xl p-5 text-center">
+                        <p className="text-white/50 text-[10px] font-bold tracking-widest uppercase mb-1">Pricing</p>
+                        <p className="text-white font-black text-lg leading-tight">Confirmed On-Site</p>
+                        <p className="text-white/40 text-xs mt-2 leading-relaxed">
+                          Architectural Bench Top pricing varies by size, finish &amp; complexity.<br />
+                          We&apos;ll contact you to discuss and confirm the final price on-site — no obligation.
+                        </p>
+                      </div>
+                    ) : estimate ? (
                       <div className="bg-ink-900 rounded-2xl p-5 text-center">
                         <p className="text-white/50 text-[10px] font-bold tracking-widest uppercase mb-1">Rough Estimate</p>
                         <p className="text-white font-black text-[2rem] leading-none">
                           ${estimate.low.toLocaleString()} – ${estimate.high.toLocaleString()}
                         </p>
                         <p className="text-white/40 text-xs mt-2 leading-relaxed">
-                          Supply &amp; install &middot; {estimate.quantity} {estimate.unit} at ${PRICING[answers.service!][answers.type!].low}&ndash;${PRICING[answers.service!][answers.type!].high} / {estimate.unit}<br />
+                          {isSteps
+                            ? `${estimate.quantity} step${estimate.quantity !== 1 ? "s" : ""} at $${PRICING[answers.service!][answers.type!].low.toLocaleString()}–$${PRICING[answers.service!][answers.type!].high.toLocaleString()} per step`
+                            : `Supply & install · ${estimate.quantity} ${estimate.unit} at $${PRICING[answers.service!][answers.type!].low}–$${PRICING[answers.service!][answers.type!].high} / ${estimate.unit}`
+                          }<br />
                           Accurate quote after free on-site inspection
                         </p>
                       </div>

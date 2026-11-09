@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Phone, Check, Hammer, Leaf, Layers, ShieldCheck, Mountain, ArrowRight } from "lucide-react";
+import { Phone, Check, Hammer, Leaf, Layers, ShieldCheck, Mountain, ArrowRight, Sparkles } from "lucide-react";
 import { ImageSlot, Eyebrow } from "@/components/SiteUI";
 import { PRICING } from "@/lib/pricing";
 
@@ -10,7 +10,7 @@ import { PRICING } from "@/lib/pricing";
 
 /** "$60 – $110 / m²" plus a "cheapest from · priciest from" note, read from lib/pricing.ts */
 function priceGuide(service: string) {
-  const types = Object.entries(PRICING[service] ?? {});
+  const types = Object.entries(PRICING[service] ?? {}).filter(([, p]) => !p.enquiry);
   if (!types.length) return null;
   const lows = types.map(([, p]) => p.low);
   const highs = types.map(([, p]) => p.high);
@@ -61,6 +61,24 @@ const services = [
     ],
     ...priceGuide("Landscaping")!,
     image: "/images/landscaping.png",
+  },
+  {
+    id: "architectural-concrete",
+    Icon: Sparkles,
+    title: "Architectural Concrete",
+    tagline: "Premium concrete crafted to impress.",
+    desc: "Beyond functional concrete — we design and build feature pieces that become the centrepiece of your home. From cantilevered floating steps to bespoke bench tops, every piece is precision-formed and finished to an architectural standard.",
+    features: [
+      "Floating & cantilevered steps",
+      "Architectural bench tops",
+      "Feature walls & panels",
+      "Custom concrete furniture",
+      "Polished & honed finishes",
+      "Bespoke residential & commercial",
+    ],
+    ...priceGuide("Architectural Concrete")!,
+    pricingNote: "Floating Steps from $1,500 · Bench Top priced on-site",
+    image: "",
   },
   {
     id: "decking",

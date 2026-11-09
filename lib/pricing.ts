@@ -1,4 +1,4 @@
-export const PRICING: Record<string, Record<string, { low: number; high: number; unit: "m²" | "lm" }>> = {
+export const PRICING: Record<string, Record<string, { low: number; high: number; unit: "m²" | "lm" | "step"; enquiry?: boolean }>> = {
   Concreting: {
     "Plain Concrete":      { low: 70,  high: 80,  unit: "m²" },
     "Coloured Concrete":   { low: 90,  high: 100, unit: "m²" },
@@ -9,6 +9,10 @@ export const PRICING: Record<string, Record<string, { low: number; high: number;
     "Turf / Instant Lawn":  { low: 30,  high: 60,  unit: "m²" },
     "Artificial Grass":     { low: 70,  high: 120, unit: "m²" },
     "Paving & Hardscaping": { low: 63,  high: 170, unit: "m²" },
+  },
+  "Architectural Concrete": {
+    "Floating Steps":          { low: 1500, high: 2000, unit: "step" },
+    "Architectural Bench Top": { low: 0,    high: 0,    unit: "m²",  enquiry: true },
   },
   Decking: {
     "Hardwood (Merbau)":   { low: 320, high: 320, unit: "m²" },
@@ -34,12 +38,12 @@ export interface QuoteLead {
 export interface Estimate {
   low: number;
   high: number;
-  unit: "m²" | "lm";
+  unit: "m²" | "lm" | "step";
   quantity: number;
 }
 
 /** Unit (m² or lm) a service/type is priced in. Falls back on the service's first type. */
-export function unitFor(a: QuoteLead): "m²" | "lm" {
+export function unitFor(a: QuoteLead): "m²" | "lm" | "step" {
   const types = a.service ? PRICING[a.service] : undefined;
   const p = (a.type && types?.[a.type]) || (types && Object.values(types)[0]);
   return p?.unit ?? "m²";
@@ -55,9 +59,12 @@ export function formatSize(a: QuoteLead): string {
 export function calcEstimate(a: QuoteLead): Estimate | null {
   if (!a.service || !a.type || !a.size) return null;
   const p = PRICING[a.service]?.[a.type];
-  if (!p) return null;
+  if (!p || p.enquiry) return null;
   const n = parseFloat(a.size);
   if (isNaN(n) || n <= 0) return null;
+  if (p.unit === "step") {
+    return { low: p.low * n, high: p.high * n, unit: "step", quantity: n };
+  }
   const round = (v: number) => Math.round((v * n) / 100) * 100;
   return { low: round(p.low), high: round(p.high), unit: p.unit, quantity: n };
 }
